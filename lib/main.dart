@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'difficulty.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -13,9 +15,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  @override
   bool opacidade = true;
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -92,7 +94,7 @@ class Tasks extends StatefulWidget {
 }
 
 class _TasksState extends State<Tasks> {
-  int level = 1;
+  int level = 0;
 
   void levelUp() {
     setState(() {
@@ -155,8 +157,7 @@ class _TasksState extends State<Tasks> {
                                   overflow: TextOverflow.ellipsis),
                             ),
                           ),
-                          Difficulty(widget.dificuldade),
-                          // vai ser um novo componente.
+                          Difficulty(difficultyLevel: widget.dificuldade),
                         ],
                       ),
                       Padding(
@@ -166,10 +167,10 @@ class _TasksState extends State<Tasks> {
                           width: 52,
                           child: ElevatedButton(
                             onPressed: levelUp,
-                            child: Column(
+                            child: const Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Icon(Icons.arrow_drop_up),
                                 Text(
                                   'UP',
@@ -213,38 +214,6 @@ class _TasksState extends State<Tasks> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class Difficulty extends StatelessWidget {
-  final int dificulty;
-
-  const Difficulty(this.dificulty, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      //aula 5.4
-      child: Row(
-        children: [
-          Icon(Icons.star,
-              size: 15,
-              color: (dificulty >= 1) ? Colors.blue : Colors.blue[100]),
-          Icon(Icons.star,
-              size: 15,
-              color: (dificulty >= 2) ? Colors.blue : Colors.blue[100]),
-          Icon(Icons.star,
-              size: 15,
-              color: (dificulty >= 3) ? Colors.blue : Colors.blue[100]),
-          Icon(Icons.star,
-              size: 15,
-              color: (dificulty >= 4) ? Colors.blue : Colors.blue[100]),
-          Icon(Icons.star,
-              size: 15,
-              color: (dificulty >= 5) ? Colors.blue : Colors.blue[100]),
-        ],
       ),
     );
   }
