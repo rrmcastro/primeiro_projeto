@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'difficulty.dart';
+import 'package:primeiro_projeto/components/difficulty.dart';
 
 class Task extends StatefulWidget {
   final String nome;
@@ -15,13 +14,7 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  int level = 0;
-
-  void levelUp() {
-    setState(() {
-      level++;
-    });
-  }
+  int nivel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +30,6 @@ class _TaskState extends State<Task> {
             height: 140,
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -47,19 +39,18 @@ class _TaskState extends State<Task> {
                 height: 100,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: Colors.black12,
                       ),
+                      width: 72,
+                      height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
                         child: Image.asset(
                           widget.foto,
-                          height: 100,
-                          width: 72,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -73,30 +64,35 @@ class _TaskState extends State<Task> {
                           child: Text(
                             widget.nome,
                             style: const TextStyle(
-                                fontSize: 24, overflow: TextOverflow.ellipsis),
+                              fontSize: 24,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
-                        Difficulty(difficultyLevel: widget.dificuldade),
+                        Difficulty(
+                          difficultyLevel: widget.dificuldade,
+                        ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: SizedBox(
-                        height: 62,
-                        width: 52,
-                        child: ElevatedButton(
-                          onPressed: levelUp,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Icon(Icons.arrow_drop_up),
-                              Text(
-                                'UP',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                    SizedBox(
+                      height: 58,
+                      width: 66,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            nivel++;
+                          });
+                        },
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Icon(Icons.arrow_drop_up),
+                            Text(
+                              'UP',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                     )
@@ -107,15 +103,13 @@ class _TaskState extends State<Task> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                    ),
+                    padding: const EdgeInsets.all(8),
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
                         color: Colors.white,
-                        value: widget.dificuldade > 0
-                            ? ((level / widget.dificuldade) / 10)
+                        value: (widget.dificuldade > 0)
+                            ? (nivel / widget.dificuldade) / 10
                             : 1,
                       ),
                     ),
@@ -123,7 +117,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
-                      'Nivel: $level',
+                      'Nivel: $nivel',
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
