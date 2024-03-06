@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/screens/form_screen.dart';
-
 import '../components/task.dart';
 import '../data/task_dao.dart';
 
@@ -17,6 +16,13 @@ class _InitialScreenState extends State<InitialScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: const Icon(Icons.refresh))
+        ],
         title: const Text('Tarefas'),
       ),
       body: Padding(
@@ -89,8 +95,8 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
             ),
           ).then((value) => setState(() {
-            print('Recarregando a tela inicial');
-          }));
+                print('Recarregando a tela inicial');
+              }));
         },
         child: const Icon(Icons.add),
       ),
